@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Footer from "../components/Footer.astro";
+import fadeImg from "../assets/fade.jpg";
+import beardImg from "../assets/beard.jpg";
+import beardCutImg from "../assets/BeardCut.jpg";
+import kidsImg from "../assets/kids.jpg";
+---
+
+<BaseLayout
+  title="Chido BarberShop"
+  description="Barbershop in Longmont, CO. Fresh fades, beard trims, walk-ins welcome."
+>
+  <Navbar />
+
+  {/* HERO is already full-bleed inside the component */}
+  <Hero />
+
+  {/* SERVICES — full-bleed section, container only for inner content */}
+  <section id="services" class="relative bg-neutral-950 text-white">
+    <!-- subtle grid like hero -->
+    <div aria-hidden="true"
+         class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:18px_18px]"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="mb-6 text-2xl font-bold text-white">
+        Popular <span class="text-red-500">Services</span>
+      </h2>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<ServiceCard
+			title="Regular Cut"
+			description="Sharp, clean, and tailored to you."
+			price="30"
+			image={fadeImg}
+			imageAlt="Precision fade"
+			ctaLabel="Book Now"
+			ctaHref="#book"
+		/>
+		<ServiceCard
+			title="Beard Trim"
+			description="Line-up and sculpt for a polished look."
+			price="20"
+			image={beardImg}
+			imageAlt="Beard trim"
+			ctaLabel="Book Now"
+			ctaHref="#book"
+		/>
+		<ServiceCard
+			title="Cut + Beard Trim"
+			description="Line-up and sculpt for a polished look."
+			price="50"
+			image={beardCutImg}
+			imageAlt="Beard cut and trim"
+			ctaLabel="Book Now"
+			ctaHref="#book"
+		/>
+		<ServiceCard
+			title="Kids Cut"
+			description="Fresh styles with extra care."
+			price="25"
+			image={kidsImg}
+			imageAlt="Kids cut"
+			ctaLabel="Book Now"
+			ctaHref="#book"
+		/>
+		</div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

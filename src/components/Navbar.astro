@@ -1,0 +1,243 @@
+---
+const links = [
+  { href: '#services', label: 'Services' },
+  { href: '/barbers', label: 'Barbers' }, // switches to /stylists in Salon mode
+  { href: '/info', label: 'Info' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-[var(--surface-nav)] text-[var(--text)] border-b border-[var(--border)] backdrop-blur transition-colors">
+  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <!-- Logo / Name -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div
+        id="logoBadge"
+        class="h-10 w-10 rounded-full bg-[var(--primary)] flex items-center justify-center font-bold text-lg shadow-md transition-transform duration-300 group-hover:-translate-y-0.5"
+        style="box-shadow: 0 6px 14px color-mix(in oklab, var(--primary) 35%, transparent);"
+      >
+        CB
+      </div>
+      <span id="brandName" class="text-xl font-bold tracking-wide">Chido BarberShop</span>
+    </a>
+
+    <!-- Desktop links + toggles -->
+    <div class="hidden md:flex items-center gap-6">
+      <ul class="flex items-center gap-6 text-sm font-medium">
+        {links.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class="relative transition duration-200 hover:text-[var(--primary)]
+                     after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-[var(--primary)]
+                     hover:after:w-full after:transition-all"
+              data-nav-item={link.label}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Barber / Salon toggle -->
+      <div class="relative ml-2">
+        <div
+          id="bizToggle"
+          class="toggle relative isolate grid w-[200px] grid-cols-2 rounded-xl border border-[var(--border)]
+                 bg-[var(--surface)] text-[var(--text)] overflow-hidden"
+        >
+          <!-- slider pill (UNDER the text) -->
+          <span
+            id="bizPill"
+            class="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-[var(--primary)] z-0
+                   transition-transform duration-300 ease-out"
+            style="transform: translateX(0%);"
+            aria-hidden="true"
+          ></span>
+
+          <button
+            id="btnBarber"
+            type="button"
+            class="relative z-10 py-2 text-xs font-semibold transition-colors"
+            aria-selected="true"
+            onclick="window.__setBiz && window.__setBiz('barber')"
+          >Barber</button>
+
+          <button
+            id="btnSalon"
+            type="button"
+            class="relative z-10 py-2 text-xs font-semibold transition-colors"
+            aria-selected="false"
+            onclick="window.__setBiz && window.__setBiz('salon')"
+          >Salon</button>
+        </div>
+      </div>
+
+      <!-- Light / Dark toggle (SVGs centered, CSS-swapped) -->
+      <button
+        id="themeToggle"
+        type="button"
+        onclick="window.__toggleTheme && window.__toggleTheme();"
+        class="relative ml-1 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)]
+               bg-white/60 text-neutral-900 transition hover:bg-white
+               dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 overflow-hidden"
+        aria-label="Toggle theme" title="Toggle theme"
+      >
+        <!-- Sun -->
+        <svg id="iconSun" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" stroke-width="1.6"></circle>
+          <path stroke-width="1.6" d="M12 2v2m0 16v2m8-10h2M2 12H4m13.657-7.657-1.414 1.414M7.757 16.243l-1.414 1.414m0-12.728 1.414 1.414m9.9 9.9 1.414 1.414"/>
+        </svg>
+        <!-- Moon -->
+        <svg id="iconMoon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke-width="1.6" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--primary)] text-white transition hover:bg-[var(--primary-600)]
+             focus:outline-none focus:ring-2 focus:ring-[color:var(--ring)]"
+      aria-label="Open menu"
+      onclick="document.getElementById('mobile-menu').classList.toggle('max-h-0');document.getElementById('mobile-menu').classList.toggle('max-h-[60vh]');"
+    >☰</button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden max-h-0 overflow-hidden transition-[max-height] duration-300
+           bg-[var(--surface)] text-[var(--text)] border-t border-[var(--primary)]/50"
+  >
+    <ul class="flex flex-col p-4 gap-4 text-sm font-medium">
+      {links.map(link => (
+        <li>
+          <a
+            data-nav-item={link.label}
+            href={link.href}
+            class="relative transition duration-200 hover:text-[var(--primary)]
+                   after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-[var(--primary)]
+                   hover:after:w-full after:transition-all"
+          >{link.label}</a>
+        </li>
+      ))}
+
+      <!-- Mobile toggles -->
+      <li class="mt-2 flex items-center justify-between">
+        <span class="text-xs opacity-80">Theme</span>
+        <button
+          id="themeToggleMobile"
+          onclick="window.__toggleTheme && window.__toggleTheme();"
+          class="inline-flex relative h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)]
+                 bg-white/60 text-neutral-900 transition hover:bg:white
+                 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 overflow-hidden"
+          aria-label="Toggle theme"
+        >
+          <!-- Sun -->
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" stroke-width="1.6"></circle>
+            <path stroke-width="1.6" d="M12 2v2m0 16v2m8-10h2M2 12H4m13.657-7.657-1.414 1.414M7.757 16.243l-1.414 1.414m0-12.728 1.414 1.414m9.9 9.9 1.414 1.414"/>
+          </svg>
+          <!-- Moon -->
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke-width="1.6" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+          </svg>
+        </button>
+      </li>
+
+      <li class="flex items-center justify-between">
+        <span class="text-xs opacity-80">Business</span>
+        <div class="relative">
+          <div
+            class="toggle relative isolate grid w-[180px] grid-cols-2 rounded-xl border border-[var(--border)]
+                   bg-[var(--surface)] text-[var(--text)] overflow-hidden"
+          >
+            <span
+              id="bizPillM"
+              class="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-[var(--primary)] z-0
+                     transition-transform duration-300 ease-out"
+              style="transform: translateX(0%);"
+              aria-hidden="true"
+            ></span>
+
+            <button
+              id="btnBarberM"
+              type="button"
+              class="relative z-10 py-2 text-xs font-semibold transition-colors"
+              aria-selected="true"
+              onclick="window.__setBiz && window.__setBiz('barber')"
+            >Barber</button>
+
+            <button
+              id="btnSalonM"
+              type="button"
+              class="relative z-10 py-2 text-xs font-semibold transition-colors"
+              aria-selected="false"
+              onclick="window.__setBiz && window.__setBiz('salon')"
+            >Salon</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- Minimal sync script -->
+<script is:inline>
+  (function () {
+    function applyNavbarBiz(mode) {
+      const brand = document.getElementById('brandName');
+      const logo  = document.getElementById('logoBadge');
+      if (brand && logo) {
+        if (mode === 'salon') { brand.textContent = 'Chido Hair Studio'; logo.textContent = 'CS'; }
+        else { brand.textContent = 'Chido BarberShop'; logo.textContent = 'CB'; }
+      }
+      // Swap Barbers ⇄ Stylists label + URL
+      document.querySelectorAll('[data-nav-item]').forEach(a => {
+        const label = a.getAttribute('data-nav-item');
+        if (mode === 'salon' && label === 'Barbers') {
+          a.textContent = 'Stylists'; a.setAttribute('data-nav-item','Stylists'); a.setAttribute('href','/stylists');
+        }
+        if (mode !== 'salon' && label === 'Stylists') {
+          a.textContent = 'Barbers';  a.setAttribute('data-nav-item','Barbers');  a.setAttribute('href','/barbers');
+        }
+      });
+      // Move slider pill(s)
+      const pill  = document.getElementById('bizPill');
+      const pillM = document.getElementById('bizPillM');
+      if (pill)  pill.style.transform  = mode === 'salon' ? 'translateX(100%)' : 'translateX(0%)';
+      if (pillM) pillM.style.transform = mode === 'salon' ? 'translateX(100%)' : 'translateX(0%)';
+
+      // Selected state on buttons
+      const btnB  = document.getElementById('btnBarber');
+      const btnS  = document.getElementById('btnSalon');
+      const btnBM = document.getElementById('btnBarberM');
+      const btnSM = document.getElementById('btnSalonM');
+      const isSalon = mode === 'salon';
+      [btnB, btnBM].forEach(b => b && (b.setAttribute('aria-selected', String(!isSalon)), b.setAttribute('data-selected', String(!isSalon))));
+      [btnS, btnSM].forEach(b => b && (b.setAttribute('aria-selected', String(isSalon)),  b.setAttribute('data-selected', String(isSalon))));
+    }
+
+    // Init from <html data-biz>
+    applyNavbarBiz(document.documentElement.dataset.biz || 'barber');
+    // React to global changes from BaseLayout helpers
+    window.addEventListener('bizchange', (e) => applyNavbarBiz(e.detail.mode));
+  })();
+</script>
+
+<!-- Icon swap styles (centered + CSS-driven) -->
+<style is:global>
+  .theme-icon{
+    position:absolute; inset:0; margin:auto;
+    width:20px; height:20px;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  /* Light: show sun */
+  html:not(.dark) #iconSun, html:not(.dark) #themeToggleMobile .theme-icon:first-of-type { transform:scale(1) rotate(0); opacity:1; }
+  html:not(.dark) #iconMoon, html:not(.dark) #themeToggleMobile .theme-icon:last-of-type  { transform:scale(0) rotate(90deg); opacity:0; }
+
+  /* Dark: show moon */
+  html.dark #iconSun, html.dark #themeToggleMobile .theme-icon:first-of-type { transform:scale(0) rotate(-90deg); opacity:0; }
+  html.dark #iconMoon, html.dark #themeToggleMobile .theme-icon:last-of-type  { transform:scale(1) rotate(0);  opacity:1; }
+</style>

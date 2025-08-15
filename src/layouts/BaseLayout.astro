@@ -1,0 +1,118 @@
+---
+const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+
+    <!-- THEME + BUSINESS: one-time init BEFORE PAINT -->
+    <script is:inline>
+      (function () {
+        const root = document.documentElement;
+
+        // Theme (Tailwind: darkMode:'class')
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+        root.classList.toggle('dark', theme === 'dark');
+
+        // Business mode (barber=red, salon=pink)
+        const savedBiz = localStorage.getItem('businessMode') || 'barber';
+        root.dataset.biz = savedBiz;
+
+        // Helpers (global)
+        function syncThemeIcon() {
+          const isDark = root.classList.contains('dark');
+          const sun = document.getElementById('iconSun');
+          const moon = document.getElementById('iconMoon');
+          if (!sun || !moon) return;
+          sun.classList.toggle('-rotate-90', isDark);
+          sun.classList.toggle('scale-0', isDark);
+          sun.classList.toggle('rotate-0', !isDark);
+          sun.classList.toggle('scale-100', !isDark);
+          moon.classList.toggle('-rotate-90', !isDark);
+          moon.classList.toggle('scale-0', !isDark);
+          moon.classList.toggle('rotate-0', isDark);
+          moon.classList.toggle('scale-100', isDark);
+        }
+
+        window.__toggleTheme = function () {
+          const isDark = root.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          syncThemeIcon();
+        };
+        window.__syncThemeIcon = syncThemeIcon;
+
+        window.__setBiz = function (mode) {
+          root.dataset.biz = mode;
+          localStorage.setItem('businessMode', mode);
+          window.dispatchEvent(new CustomEvent('bizchange', { detail: { mode } }));
+        };
+
+        // Follow OS if user hasn't chosen
+        try {
+          const mq = window.matchMedia('(prefers-color-scheme: dark)');
+          mq.addEventListener?.('change', (e) => {
+            const hasManual = !!localStorage.getItem('theme');
+            if (!hasManual) {
+              root.classList.toggle('dark', e.matches);
+              syncThemeIcon();
+            }
+          });
+        } catch {}
+
+        // Initial icon sync after DOM paints
+        window.addEventListener('DOMContentLoaded', syncThemeIcon);
+      })();
+    </script>
+
+    <!-- Global color + surface variables -->
+    <style is:global>
+      /* Brand primary (changes via [data-biz]) */
+      :root{
+        --primary: #ef4444;     /* red-500 */
+        --primary-600: #dc2626; /* red-600 */
+        --ring: rgba(239,68,68,.6);
+
+        /* LIGHT surfaces */
+        --surface: #ffffff;
+        --surface-nav: #ffffff;
+        --text: #0a0a0a;
+        --border: rgba(0,0,0,.10);
+      }
+      html[data-biz="salon"]{
+        --primary: #ec4899;     /* pink-500 */
+        --primary-600: #db2777; /* pink-600 */
+        --ring: rgba(236,72,153,.6);
+      }
+      /* DARK surfaces */
+      html.dark{
+        --surface: #0a0a0a;
+        --surface-nav: #0a0a0a;
+        --text: #ffffff;
+        --border: rgba(255,255,255,.10);
+      }
+      /* Prefer translucent nav when blur is supported */
+      @supports (backdrop-filter: blur(8px)) {
+        :root{       --surface-nav: rgba(255,255,255,0.85); }
+        html.dark{   --surface-nav: rgba(0,0,0,0.70); }
+      }
+
+      /* Selection color uses brand */
+      ::selection { background: color-mix(in oklab, var(--primary) 30%, transparent); color: #fff; }
+    </style>
+
+    <!-- Optional: fix favicon 404 -->
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <!-- Use variables for page colors so light/dark actually flips surfaces/text -->
+  <body class="min-h-screen bg-[var(--surface)] text-[var(--text)] transition-colors duration-200">
+    <slot />
+  </body>
+</html>

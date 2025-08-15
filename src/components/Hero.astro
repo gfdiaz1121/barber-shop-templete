@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import heroBarber from '../assets/hero.jpg';
+import heroSalon  from '../assets/SalonHero.jpg';
+
+const { bizMode = 'barber' } = Astro.props;
+---
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-[var(--surface)] text-[var(--text)] transition-colors">
+  <!-- Glow uses primary -->
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full blur-3xl"
+       style="background-color: color-mix(in oklab, var(--primary) 30%, transparent)"></div>
+
+  <!-- Subtle grid -->
+  <div aria-hidden="true"
+       class="absolute inset-0
+              [--grid:color-mix(in_oklab,currentColor_12%,transparent)]
+              bg-[radial-gradient(circle_at_1px_1px,var(--grid)_1px,transparent_1px)]
+              [background-size:18px_18px]"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 py-24 lg:flex lg:items-center lg:gap-12 lg:py-32">
+    <!-- Brand + text -->
+    <div class="max-w-2xl">
+      <a href="/" class="mb-6 inline-flex items-center gap-3 hover:opacity-95 transition">
+        <div id="heroLogo"
+             class="flex h-12 w-12 items-center justify-center rounded-full font-extrabold tracking-wider shadow-lg"
+             style="background: var(--primary); box-shadow: 0 8px 24px color-mix(in oklab, var(--primary) 30%, transparent);">
+          CB
+        </div>
+        <span id="heroBrand" class="text-xl font-bold tracking-wide">Chido BarberShop</span>
+      </a>
+
+      <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">
+        Style <span class="text-[color:var(--primary)]">that stands out</span>, quality that lasts.
+      </h1>
+
+      <p id="heroSub" class="mt-5 sm:text-lg">
+        Delivering a professional look and unforgettable experience. Book today and leave with confidence.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <!-- Primary CTA -->
+        <a href="#book"
+           class="relative inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-semibold text-white shadow-lg transition
+                  hover:bg-[var(--primary-600)] active:scale-[.98]
+                  focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/70 focus:ring-offset-2
+                  focus:ring-offset-[var(--surface)] overflow-hidden"
+           style="background: var(--primary); box-shadow: 0 0 25px 3px color-mix(in oklab, var(--primary) 25%, transparent);">
+          <span class="relative z-10">Book Now</span>
+          <span aria-hidden="true"
+                class="pointer-events-none absolute inset-0 -translate-x-full
+                       bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.18),transparent)]
+                       transition-transform duration-700 ease-out hover:translate-x-full"></span>
+        </a>
+
+        <!-- Secondary CTA -->
+        <a href="#services"
+           class="group relative inline-flex items-center justify-center rounded-xl border px-6 py-3 text-base font-semibold backdrop-blur transition
+                  border-[var(--border)] text-[var(--text)]/90 hover:text-[var(--text)]
+                  focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/70
+                  focus:ring-offset-2 focus:ring-offset-[var(--surface)]">
+          <span>View Services</span>
+          <span aria-hidden="true"
+                class="absolute -bottom-[2px] left-3 right-3 h-[2px] origin-left scale-x-0 transition-transform duration-300 ease-out"
+                style="background: var(--primary);"></span>
+        </a>
+      </div>
+
+      <!-- Badges -->
+      <div class="mt-8 flex flex-wrap gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">⭐⭐⭐⭐⭐ Rated</span>
+        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">✂️ Professional Team</span>
+        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">📅 Easy Booking</span>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div class="mt-12 w-full max-w-lg flex-shrink-0 lg:mt-0">
+      <div class="hero-img-wrap relative aspect-[4/5] w-full overflow-hidden rounded-3xl border shadow-2xl transition-transform duration-300 hover:-translate-y-1 border-[var(--border)]">
+        <Image src={heroBarber} alt="Chido BarberShop Hero Image" widths={[640,960,1280,1600]} sizes="(min-width:1024px) 50vw, 100vw" format="webp" quality={85} class="hero-img hero-img--barber" />
+        <Image src={heroSalon}  alt="Chido Hair Studio Hero Image" widths={[640,960,1280,1600]} sizes="(min-width:1024px) 50vw, 100vw" format="webp" quality={85} class="hero-img hero-img--salon" />
+        <div class="absolute -right-6 -top-6 h-24 w-24 rotate-12 rounded-2xl blur-lg motion-safe:animate-pulse-soft" style="background: color-mix(in oklab, var(--primary) 80%, transparent)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom stripe -->
+  <div class="relative h-1 w-full overflow-hidden" style="background-image: linear-gradient(to right, var(--primary), var(--primary-600), var(--primary));">
+    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-[-30%] w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent)] motion-safe:animate-stripe"></span>
+  </div>
+</section>
+
+<style is:global>
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe\:animate-pulse-soft,
+    .motion-safe\:animate-stripe { animation: none !important; }
+  }
+  @keyframes pulse-soft { 
+    0%,100% { transform: scale(1); opacity: .9 } 
+    50%     { transform: scale(1.05); opacity: 1 } 
+  }
+  .motion-safe\:animate-pulse-soft { animation: pulse-soft 2.2s ease-in-out infinite; }
+
+  @keyframes stripe { 
+    0%   { transform: translateX(0%) } 
+    100% { transform: translateX(200%) } 
+  }
+  .motion-safe\:animate-stripe { animation: stripe 2.8s linear infinite; }
+
+  .hero-img-wrap { position: relative; }
+  .hero-img { 
+    position: absolute; 
+    inset: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    opacity: 0; 
+    transition: opacity .35s ease; 
+  }
+  html[data-biz="barber"] .hero-img--barber { opacity: 1; }
+  html[data-biz="salon"]  .hero-img--salon  { opacity: 1; }
+
+  /* ✅ Hero subtitle forced colors */
+  #heroSub { color: #000 !important; }              /* Pure black in light mode */
+  html.dark #heroSub { color: #d1d5db !important; } /* Neutral-300 in dark mode */
+</style>
+
+
+<script is:inline>
+  const brandEl = document.getElementById('heroBrand');
+  const logoEl  = document.getElementById('heroLogo');
+  function applyHeroBiz(mode) {
+    if (!brandEl || !logoEl) return;
+    if (mode === 'salon') { brandEl.textContent = 'Chido Hair Studio'; logoEl.textContent = 'CS'; }
+    else { brandEl.textContent = 'Chido BarberShop'; logoEl.textContent = 'CB'; }
+  }
+  applyHeroBiz(document.documentElement.dataset.biz || 'barber');
+  window.addEventListener('bizchange', (e) => applyHeroBiz(e.detail.mode));
+</script>
