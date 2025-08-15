@@ -1,13 +1,13 @@
 ---
 const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro.props;
 ---
-
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
     <link rel="stylesheet" href="/src/styles/global.css" />
 
     <!-- THEME + BUSINESS: one-time init BEFORE PAINT -->
@@ -73,15 +73,26 @@ const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro
 
     <!-- Global color + surface variables -->
     <style is:global>
+      /* Navbar height for fixed/sticky spacing */
+      :root {
+        --nav-h: 64px; /* matches h-16 */
+      }
+        
+      html {
+        scroll-behavior: smooth;
+      }
+
+
+
       /* Brand primary (changes via [data-biz]) */
       :root{
         --primary: #ef4444;     /* red-500 */
         --primary-600: #dc2626; /* red-600 */
         --ring: rgba(239,68,68,.6);
 
-        /* LIGHT surfaces */
+        /* LIGHT base surfaces */
         --surface: #ffffff;
-        --surface-nav: #ffffff;
+        --surface-nav: #ffffff;  /* will be overridden by blur variant below */
         --text: #0a0a0a;
         --border: rgba(0,0,0,.10);
       }
@@ -93,26 +104,37 @@ const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro
       /* DARK surfaces */
       html.dark{
         --surface: #0a0a0a;
-        --surface-nav: #0a0a0a;
+        --surface-nav: #0a0a0a; /* will be overridden by blur variant below */
         --text: #ffffff;
         --border: rgba(255,255,255,.10);
       }
-      /* Prefer translucent nav when blur is supported */
+      :target {
+        scroll-margin-top: 5rem; /* height of your navbar */
+      }
+
+      /* Prefer translucent/glassy nav when blur is supported */
       @supports (backdrop-filter: blur(8px)) {
-        :root{       --surface-nav: rgba(255,255,255,0.85); }
-        html.dark{   --surface-nav: rgba(0,0,0,0.70); }
+        /* Light: bright, slightly translucent white */
+        :root     { --surface-nav: rgba(255,255,255,0.88); }
+        /* Dark: glassy near-black */
+        html.dark { --surface-nav: rgba(10,10,10,0.72); }
       }
 
       /* Selection color uses brand */
-      ::selection { background: color-mix(in oklab, var(--primary) 30%, transparent); color: #fff; }
+      ::selection {
+        background: color-mix(in oklab, var(--primary) 30%, transparent);
+        color: #fff;
+      }
     </style>
 
-    <!-- Optional: fix favicon 404 -->
     <link rel="icon" href="/favicon.ico" />
   </head>
 
-  <!-- Use variables for page colors so light/dark actually flips surfaces/text -->
+  <!-- Page uses CSS variables so light/dark flips surfaces/text everywhere -->
   <body class="min-h-screen bg-[var(--surface)] text-[var(--text)] transition-colors duration-200">
-    <slot />
+    <!-- Your header (fixed/sticky) should sit above; add top padding to content -->
+    <main class="pt-[var(--nav-h)]">
+      <slot />
+    </main>
   </body>
 </html>

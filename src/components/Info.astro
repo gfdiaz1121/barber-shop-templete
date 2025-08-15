@@ -1,0 +1,105 @@
+<!-- INFO -->
+<section id="info" class="relative bg-[var(--surface)] text-[var(--text)] transition-colors scroll-mt-20">
+  <!-- subtle grid like the other sections -->
+  <div aria-hidden="true"
+       class="absolute inset-0 [--grid:color-mix(in_oklab,currentColor_10%,transparent)]
+              bg-[radial-gradient(circle_at_1px_1px,var(--grid)_1px,transparent_1px)]
+              [background-size:18px_18px]"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="mb-8 text-2xl font-bold">
+      Get in <span class="text-[color:var(--primary)]">Touch</span>
+    </h2>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+      <!-- Left: contact cards -->
+      <div class="space-y-4">
+        <!-- Phone -->
+        <a href="tel:+17205551234"
+           class="group flex items-start gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 p-4 backdrop-blur transition hover:shadow-md hover:-translate-y-0.5">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)] text-white">
+            <!-- phone icon -->
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.5 19.5 0 0 1-8.52-3.12 19.3 19.3 0 0 1-6-6A19.5 19.5 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3A2 2 0 0 1 9 3.72c.2.79.48 1.56.84 2.28a2 2 0 0 1-.45 2.18l-1 1a16 16 0 0 0 6 6l1-1a2 2 0 0 1 2.18-.45c.72.36 1.49.64 2.28.84A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm/5 text-[color-mix(in_oklab,var(--text)_70%,transparent)]">Phone</p>
+            <p class="font-semibold">+1 (720) 555-1234</p>
+          </div>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:hello@chidobarbershop.com"
+           class="group flex items-start gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 p-4 backdrop-blur transition hover:shadow-md hover:-translate-y-0.5">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)] text-white">
+            <!-- mail icon -->
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+              <path d="m22 6-10 7L2 6"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm/5 text-[color-mix(in_oklab,var(--text)_70%,transparent)]">Email</p>
+            <p class="font-semibold">hello@chidobarbershop.com</p>
+          </div>
+        </a>
+
+        <!-- Address -->
+        <div class="flex items-start gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 p-4 backdrop-blur">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)] text-white">
+            <!-- map-pin icon -->
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm/5 text-[color-mix(in_oklab,var(--text)_70%,transparent)]">Address</p>
+            <p class="font-semibold">123 Main St, Longmont, CO 80501</p>
+            <a class="mt-1 inline-flex text-sm font-medium text-[color:var(--primary)] hover:underline"
+               target="_blank"
+               rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&query=123%20Main%20St%20Longmont%20CO%2080501">
+              Open in Google Maps →
+            </a>
+          </div>
+        </div>
+
+        <!-- Hours (optional) -->
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 p-4 backdrop-blur">
+          <p class="text-sm/5 text-[color-mix(in_oklab,var(--text)_70%,transparent)]">Hours</p>
+          <ul class="mt-1 text-sm">
+            <li class="flex justify-between"><span>Mon–Fri</span><span class="font-medium">9:00a – 7:00p</span></li>
+            <li class="flex justify-between"><span>Sat</span><span class="font-medium">9:00a – 5:00p</span></li>
+            <li class="flex justify-between"><span>Sun</span><span class="font-medium">Closed</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: map -->
+      <div class="rounded-2xl border border-[var(--border)] overflow-hidden">
+        <!-- Responsive map wrapper -->
+        <div class="relative w-full pt-[56%]">
+          <iframe
+            class="absolute inset-0 h-full w-full"
+            style="border:0; filter: var(--map-filter, none);"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=123%20Main%20St%2C%20Longmont%2C%20CO%2080501&output=embed">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom accent line -->
+  <div class="relative h-[1px] w-full overflow-hidden"
+       style="background-image: linear-gradient(to right, var(--primary), var(--primary-600), var(--primary));"></div>
+</section>
+
+<style is:global>
+  /* Optional: slightly dim map in dark mode so it blends with the theme */
+  html.dark :where(#info iframe){ --map-filter: grayscale(.1) brightness(.9) contrast(1.05); }
+</style>

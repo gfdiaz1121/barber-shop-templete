@@ -67,12 +67,22 @@ const { bizMode = 'barber' } = Astro.props;
         </a>
       </div>
 
-      <!-- Badges -->
-      <div class="mt-8 flex flex-wrap gap-4 text-sm text-neutral-500 dark:text-neutral-400">
-        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">⭐⭐⭐⭐⭐ Rated</span>
-        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">✂️ Professional Team</span>
-        <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5 border-[var(--border)]">📅 Easy Booking</span>
-      </div>
+    <!-- Badges -->
+<div class="mt-8 flex flex-wrap gap-4 text-sm font-semibold">
+  <span class="badge-chip inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5">
+    ⭐⭐⭐⭐⭐ Rated
+  </span>
+  <span class="badge-chip inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5">
+    ✂️ Professional Team
+  </span>
+  <span class="badge-chip inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-transform hover:-translate-y-0.5">
+    📅 Easy Booking
+  </span>
+</div>
+
+
+
+
     </div>
 
     <!-- Image -->
@@ -124,6 +134,15 @@ const { bizMode = 'barber' } = Astro.props;
   /* ✅ Hero subtitle forced colors */
   #heroSub { color: #000 !important; }              /* Pure black in light mode */
   html.dark #heroSub { color: #d1d5db !important; } /* Neutral-300 in dark mode */
+
+  /* Badge chips: force strong text in both themes */
+.badge-chip { color:#000 !important; }            /* pure black in light */
+html.dark .badge-chip { color:#d1d5db !important; } /* neutral-300 in dark */
+
+/* optional: make borders a touch stronger in light for contrast */
+.badge-chip { border-color: color-mix(in oklab, #000 12%, transparent) !important; }
+html.dark .badge-chip { border-color: color-mix(in oklab, #fff 18%, transparent) !important; }
+
 </style>
 
 

@@ -1,60 +1,55 @@
 ---
-import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
+import { Image } from 'astro:assets';
 export interface Props {
   title: string;
   description: string;
   price?: string | number;
-  image: ImageMetadata;   // import from src/assets
+  image: any;          // ImageMetadata from astro:assets
   imageAlt?: string;
   ctaLabel?: string;
   ctaHref?: string;
 }
-
 const {
-  title,
-  description,
-  price,
-  image,
-  imageAlt = title,
-  ctaLabel = 'Book Now',
-  ctaHref = '#book',
+  title, description, price,
+  image, imageAlt = title,
+  ctaLabel = 'Book Now', ctaHref = '#book'
 } = Astro.props;
 ---
 
 <article
-  class="group relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 transition hover:border-red-600/60 hover:shadow-2xl">
+  class="group relative overflow-hidden rounded-2xl border bg-[color-mix(in_oklab,var(--text)_2%,transparent)]
+                 border-[var(--border)] shadow transition
+                 hover:border-[color:var(--primary)] hover:shadow-[0_0_24px_color-mix(in_oklab,var(--primary)_25%,transparent)]">
 
-  <!-- Optimized responsive image -->
-  <div class="relative w-full overflow-hidden" style="aspect-ratio:4/3">
-    <Picture
+  <!-- Image -->
+<div class="relative aspect-[4/3] overflow-hidden">
+    <Image
       src={image}
+      alt={imageAlt}
       widths={[640, 960, 1280, 1600]}
       sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-      formats={['avif','webp','jpeg']}
-      quality={82}
-      alt={imageAlt}
-      class="h-full w-full object-cover"
+      format="webp"
+      quality={85}
+       class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
     />
     {price !== undefined && (
-      <div class="absolute left-3 top-3 rounded-xl bg-red-600 px-3 py-1 text-sm font-semibold text-white shadow">
+      <div class="absolute left-3 top-3 rounded-xl px-3 py-1 text-sm font-semibold text-white shadow"
+           style="background: var(--primary); box-shadow: 0 0 12px color-mix(in oklab, var(--primary) 35%, transparent);">
         ${price}
       </div>
     )}
-    <div aria-hidden="true"
-         class="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rotate-12 rounded-2xl bg-red-600/70 blur-xl"></div>
   </div>
 
   <!-- Content -->
   <div class="p-6">
-    <h3 class="text-xl font-semibold text-white">{title}</h3>
-    <p class="mt-2 text-neutral-300">{description}</p>
+    <h3 class="text-lg font-semibold text-[var(--text)]">{title}</h3>
+    <p class="mt-2 text-[color-mix(in_oklab,var(--text)_70%,transparent)]">{description}</p>
 
     <div class="mt-5">
       <a
         href={ctaHref}
-        class="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-red-500 active:scale-[.98]"
+        class="inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow transition active:scale-[.98]"
+        style="background: var(--primary); box-shadow: 0 0 16px color-mix(in oklab, var(--primary) 28%, transparent);"
         aria-label={`${ctaLabel}: ${title}`}
       >
         {ctaLabel}
@@ -62,7 +57,10 @@ const {
     </div>
   </div>
 
-  <!-- subtle grid like the hero -->
+  <!-- Subtle grid overlay to match hero -->
   <div aria-hidden="true"
-       class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:18px_18px]"></div>
+       class="pointer-events-none absolute inset-0 -z-10
+              [--grid:color-mix(in_oklab,var(--text)_6%,transparent)]
+              bg-[radial-gradient(circle_at_1px_1px,var(--grid)_1px,transparent_1px)]
+              [background-size:18px_18px]"></div>
 </article>

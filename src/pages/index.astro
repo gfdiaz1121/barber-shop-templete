@@ -3,73 +3,194 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
 import ServiceCard from "../components/ServiceCard.astro";
+import BarberCard from "../components/BarberCard.astro";
 import Footer from "../components/Footer.astro";
+import Info from "../components/Info.astro";
+/* BARBER service images */
 import fadeImg from "../assets/fade.jpg";
 import beardImg from "../assets/beard.jpg";
 import beardCutImg from "../assets/BeardCut.jpg";
 import kidsImg from "../assets/kids.jpg";
+
+/* SALON service images (replace with real salon assets when ready) */
+import WomenRegCut from "../assets/womencut.jpg";
+import colorImg from "../assets/HairColor.jpg";
+import styleImg from "../assets/style.jpg";
+import trimImg from "../assets/wash.jpg";
+
+/* TEAM photos (sample) */
+import MaleUser from "../assets/man.png";
+import FemaleUser from "../assets/woman.png";
 ---
 
-<BaseLayout
-  title="Chido BarberShop"
-  description="Barbershop in Longmont, CO. Fresh fades, beard trims, walk-ins welcome."
->
+<BaseLayout title="Chido BarberShop" description="Barbershop in Longmont, CO. Fresh fades, beard trims, walk-ins welcome.">
   <Navbar />
-
-  {/* HERO is already full-bleed inside the component */}
   <Hero />
 
-  {/* SERVICES — full-bleed section, container only for inner content */}
-  <section id="services" class="relative bg-neutral-950 text-white">
-    <!-- subtle grid like hero -->
+  <!-- ============ SERVICES (swaps by data-biz) ============ -->
+  <section id="services" class="relative bg-[var(--surface)] text-[var(--text)] transition-colors">
+    <!-- subtle grid -->
     <div aria-hidden="true"
-         class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:18px_18px]"></div>
+      class="absolute inset-0 [--grid:color-mix(in_oklab,currentColor_10%,transparent)]
+             bg-[radial-gradient(circle_at_1px_1px,var(--grid)_1px,transparent_1px)]
+             [background-size:18px_18px]"></div>
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="mb-6 text-2xl font-bold text-white">
-        Popular <span class="text-red-500">Services</span>
+      <h2 class="mb-6 text-2xl font-bold">
+        Popular <span class="text-[color:var(--primary)]">Services</span>
       </h2>
 
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-		<ServiceCard
-			title="Regular Cut"
-			description="Sharp, clean, and tailored to you."
-			price="30"
-			image={fadeImg}
-			imageAlt="Precision fade"
-			ctaLabel="Book Now"
-			ctaHref="#book"
-		/>
-		<ServiceCard
-			title="Beard Trim"
-			description="Line-up and sculpt for a polished look."
-			price="20"
-			image={beardImg}
-			imageAlt="Beard trim"
-			ctaLabel="Book Now"
-			ctaHref="#book"
-		/>
-		<ServiceCard
-			title="Cut + Beard Trim"
-			description="Line-up and sculpt for a polished look."
-			price="50"
-			image={beardCutImg}
-			imageAlt="Beard cut and trim"
-			ctaLabel="Book Now"
-			ctaHref="#book"
-		/>
-		<ServiceCard
-			title="Kids Cut"
-			description="Fresh styles with extra care."
-			price="25"
-			image={kidsImg}
-			imageAlt="Kids cut"
-			ctaLabel="Book Now"
-			ctaHref="#book"
-		/>
-		</div>
+      <!-- BARBER GRID -->
+      <div id="gridBarber" class="service-grid service-grid--barber grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="false">
+        <ServiceCard title="Regular Cut" description="Sharp, clean, and tailored to you." price="30" image={fadeImg} imageAlt="Precision fade" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Beard Trim" description="Line-up and sculpt for a polished look." price="20" image={beardImg} imageAlt="Beard trim" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Cut + Beard" description="Full refresh: haircut and beard trim together." price="50" image={beardCutImg} imageAlt="Haircut and beard trim" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Kids Cut" description="Fresh styles with extra care." price="25" image={kidsImg} imageAlt="Kids cut" ctaLabel="More Details" ctaHref="#team" />
+      </div>
+
+      <!-- SALON GRID -->
+      <div id="gridSalon" class="service-grid service-grid--salon grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+        <ServiceCard title="Hair Cut" description="Women regular cut with finish." price="40" image={WomenRegCut} imageAlt="Women's haircut" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Color & Gloss" description="Shine boost or full color refresh." price="85" image={colorImg} imageAlt="Hair color service" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Style & Finish" description="Waves, curls, or sleek straight." price="45" image={styleImg} imageAlt="Salon styling" ctaLabel="More Details" ctaHref="#team" />
+        <ServiceCard title="Trim & Treat" description="Healthy ends + nourishing treatment." price="55" image={trimImg} imageAlt="Trim & treatment" ctaLabel="More Details" ctaHref="#team" />
+      </div>
     </div>
+
+    <!-- bottom accent line -->
+    <div class="relative h-[1px] w-full overflow-hidden"
+      style="background-image: linear-gradient(to right, var(--primary), var(--primary-600), var(--primary));"></div>
   </section>
+
+  <!-- ============ TEAM (swaps by data-biz) ============ -->
+  <section id="team" class="relative bg-[var(--surface)] text-[var(--text)] transition-colors">
+    <!-- subtle grid -->
+    <div aria-hidden="true"
+      class="absolute inset-0 [--grid:color-mix(in_oklab,currentColor_10%,transparent)]
+             bg-[radial-gradient(circle_at_1px_1px,var(--grid)_1px,transparent_1px)]
+             [background-size:18px_18px]"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="mb-6 text-2xl font-bold">
+        Meet the <span class="text-[color:var(--primary)]">Team</span>
+      </h2>
+
+      <!-- BARBER TEAM -->
+      <div id="teamBarber" class="team-grid team-grid--barber grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="false">
+        <BarberCard
+          name="Juan Rivera"
+          role="Barber"
+          image={MaleUser}
+          rating={5}
+          tags={['Fades', 'Beards', 'Line-ups']}
+          bio="Precision fades and sharp beard work with a calm vibe."
+          hrefBook="#book?pro=juan"
+          hrefProfile="/barbers/juan"
+          isAvailable={true}
+        />
+		<BarberCard
+          name="Carlos Lopez"
+          role="Barber"
+          image={MaleUser}
+          rating={5}
+          tags={['Fades', 'Beards', 'Line-ups']}
+          bio="Precision fades and sharp beard work with a calm vibe."
+          hrefBook="#book?pro=carlos"
+          hrefProfile="/barbers/carlos"
+          isAvailable={true}
+        />
+		<BarberCard
+          name="El Chido Barber"
+          role="Barber"
+          image={MaleUser}
+          rating={5}
+          tags={['Fades', 'Beards', 'Line-ups']}
+          bio="Precision fades and sharp beard work with a calm vibe."
+          hrefBook="#book?pro=chido"
+          hrefProfile="/barbers/chido"
+          isAvailable={true}
+        />
+      </div>
+
+      <!-- SALON TEAM -->
+      <div id="teamSalon" class="team-grid team-grid--salon grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+        <BarberCard
+          name="Mia Lopez"
+          role="Stylist"
+          image={FemaleUser}
+          rating={5}
+          tags={['Balayage', 'Blonding', 'Styling']}
+          bio="Color specialist known for dimensional blondes and healthy hair."
+          hrefBook="#book?pro=mia"
+          hrefProfile="/stylists/mia"
+          isAvailable={false}
+        />
+	   <BarberCard
+          name="Gloria Gonzales"
+          role="Stylist"
+          image={FemaleUser}
+          rating={5}
+          tags={['Balayage', 'Blonding', 'Styling']}
+          bio="Color specialist known for dimensional blondes and healthy hair."
+          hrefBook="#book?pro=gloria"
+          hrefProfile="/stylists/gloria"
+          isAvailable={false}
+        />
+	   <BarberCard
+          name="Estefania Alvarado"
+          role="Stylist"
+          image={FemaleUser}
+          rating={5}
+          tags={['Balayage', 'Blonding', 'Styling']}
+          bio="Color specialist known for dimensional blondes and healthy hair."
+          hrefBook="#book?pro=estefania"
+          hrefProfile="/stylists/estefania"
+          isAvailable={false}
+        />
+      </div>
+    </div>
+
+    <!-- bottom accent line -->
+    <div class="relative h-[1px] w-full overflow-hidden"
+      style="background-image: linear-gradient(to right, var(--primary), var(--primary-600), var(--primary));"></div>
+  </section>
+  <Info />
 
   <Footer />
 </BaseLayout>
+
+<!-- Visibility CSS -->
+<style is:global>
+  /* SERVICES swap */
+  .service-grid--barber { display: grid; }
+  .service-grid--salon  { display: none; }
+  html[data-biz="salon"] .service-grid--barber { display: none; }
+  html[data-biz="salon"] .service-grid--salon  { display: grid; }
+
+  /* TEAM swap */
+  .team-grid--barber { display: grid; }
+  .team-grid--salon  { display: none; }
+  html[data-biz="salon"] .team-grid--barber { display: none; }
+  html[data-biz="salon"] .team-grid--salon  { display: grid; }
+</style>
+
+<!-- ARIA sync (keeps screen readers correct) -->
+<script is:inline>
+  function syncSectionAria(mode) {
+    const isSalon = mode === 'salon';
+    // services
+    const gb = document.getElementById('gridBarber');
+    const gs = document.getElementById('gridSalon');
+    if (gb) gb.setAttribute('aria-hidden', String(isSalon));
+    if (gs) gs.setAttribute('aria-hidden', String(!isSalon));
+    // team
+    const tb = document.getElementById('teamBarber');
+    const ts = document.getElementById('teamSalon');
+    if (tb) tb.setAttribute('aria-hidden', String(isSalon));
+    if (ts) ts.setAttribute('aria-hidden', String(!isSalon));
+  }
+  // initial from <html data-biz>
+  syncSectionAria(document.documentElement.dataset.biz || 'barber');
+  // update on navbar toggle
+  window.addEventListener('bizchange', (e) => syncSectionAria(e.detail.mode));
+</script>

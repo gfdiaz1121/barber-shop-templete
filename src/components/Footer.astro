@@ -1,0 +1,44 @@
+<!-- Footer.astro -->
+<footer class="bg-[var(--surface)] text-[var(--text)] border-t border-[var(--border)] transition-colors">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+    
+    <!-- Branding -->
+    <div>
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-full bg-[var(--primary)] flex items-center justify-center font-bold text-lg">
+          CB
+        </div>
+        <span class="text-xl font-bold tracking-wide">Chido Studio</span>
+      </div>
+      <p class="mt-4 text-sm text-[color-mix(in_oklab,var(--text)_70%,transparent)]">
+        Delivering sharp looks and a confident style since 2024.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#services" class="hover:text-[var(--primary)] transition-colors">Services</a></li>
+        <li><a href="#info" class="hover:text-[var(--primary)] transition-colors">About Us</a></li>
+        <li><a href="#contact" class="hover:text-[var(--primary)] transition-colors">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Contact</h3>
+      <ul class="space-y-2 text-sm">
+        <li><span class="font-semibold">Phone:</span> <a href="tel:+17205551234" class="hover:text-[var(--primary)] transition-colors">+1 (720) 555-1234</a></li>
+        <li><span class="font-semibold">Email:</span> <a href="mailto:info@chidostudio.com" class="hover:text-[var(--primary)] transition-colors">info@chidostudio.com</a></li>
+        <li><span class="font-semibold">Address:</span> 1234 Main Street, Longmont, CO 80501</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-[var(--border)] py-4 text-center text-sm text-[color-mix(in_oklab,var(--text)_70%,transparent)]">
+    &copy; {new Date().getFullYear()} Chido Studio. All rights reserved.
+  </div>
+</footer>
