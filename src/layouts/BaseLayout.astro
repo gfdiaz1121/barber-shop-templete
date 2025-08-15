@@ -1,6 +1,7 @@
 ---
 const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro.props;
 ---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -73,54 +74,37 @@ const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro
 
     <!-- Global color + surface variables -->
     <style is:global>
-      /* Navbar height for fixed/sticky spacing */
       :root {
         --nav-h: 64px; /* matches h-16 */
-      }
-        
-      html {
-        scroll-behavior: smooth;
-      }
-
-
-
-      /* Brand primary (changes via [data-biz]) */
-      :root{
         --primary: #ef4444;     /* red-500 */
         --primary-600: #dc2626; /* red-600 */
         --ring: rgba(239,68,68,.6);
-
-        /* LIGHT base surfaces */
         --surface: #ffffff;
-        --surface-nav: #ffffff;  /* will be overridden by blur variant below */
+        --surface-nav: #ffffff;
         --text: #0a0a0a;
         --border: rgba(0,0,0,.10);
       }
-      html[data-biz="salon"]{
+      html {
+        scroll-behavior: smooth;
+      }
+      html[data-biz="salon"] {
         --primary: #ec4899;     /* pink-500 */
         --primary-600: #db2777; /* pink-600 */
         --ring: rgba(236,72,153,.6);
       }
-      /* DARK surfaces */
-      html.dark{
+      html.dark {
         --surface: #0a0a0a;
-        --surface-nav: #0a0a0a; /* will be overridden by blur variant below */
+        --surface-nav: #0a0a0a;
         --text: #ffffff;
         --border: rgba(255,255,255,.10);
       }
       :target {
-        scroll-margin-top: 5rem; /* height of your navbar */
+        scroll-margin-top: 5rem;
       }
-
-      /* Prefer translucent/glassy nav when blur is supported */
       @supports (backdrop-filter: blur(8px)) {
-        /* Light: bright, slightly translucent white */
-        :root     { --surface-nav: rgba(255,255,255,0.88); }
-        /* Dark: glassy near-black */
+        :root { --surface-nav: rgba(255,255,255,0.88); }
         html.dark { --surface-nav: rgba(10,10,10,0.72); }
       }
-
-      /* Selection color uses brand */
       ::selection {
         background: color-mix(in oklab, var(--primary) 30%, transparent);
         color: #fff;
@@ -130,9 +114,7 @@ const { title = 'Barbershop', description = 'Clean cuts. Fresh fades.' } = Astro
     <link rel="icon" href="/favicon.ico" />
   </head>
 
-  <!-- Page uses CSS variables so light/dark flips surfaces/text everywhere -->
   <body class="min-h-screen bg-[var(--surface)] text-[var(--text)] transition-colors duration-200">
-    <!-- Your header (fixed/sticky) should sit above; add top padding to content -->
     <main class="pt-[var(--nav-h)]">
       <slot />
     </main>
